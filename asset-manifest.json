@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/conjure-kit/static/css/main.21135cbc.css",
+    "main.js": "/conjure-kit/static/js/main.21eadcfb.js",
+    "index.html": "/conjure-kit/index.html",
+    "main.21135cbc.css.map": "/conjure-kit/static/css/main.21135cbc.css.map",
+    "main.21eadcfb.js.map": "/conjure-kit/static/js/main.21eadcfb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.21135cbc.css",
+    "static/js/main.21eadcfb.js"
+  ]
+}
