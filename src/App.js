@@ -6,6 +6,7 @@ import About from './Pages/About';
 import GetStarted from './Pages/GetStarted';
 import Home from './Pages/Home';
 import Integrations from './Pages/Integrations';
+import CredentialsProvider from './Providers/CredentialsProvider';
 
 
 function App() {
@@ -13,13 +14,15 @@ function App() {
     <BrowserRouter>
       <div className="w-full mx-auto lg:w-2/4 h-screen py-2">
         <Navbar />
-        <div className="container mx-auto flex flex-col items-center py-4 sm:py-10">
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="integrations" element={<Integrations />} />
-            <Route path="about" element={<About />} />
-            <Route path="get-started" element={<GetStarted />} />
-          </Routes>
+        <div className="container mx-auto flex flex-col py-4 sm:py-10">
+          <CredentialsProvider>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="integrations" element={<Integrations />} />
+              <Route path="about" element={<About />} />
+              <Route path="get-started" element={<GetStarted />} />
+            </Routes>
+          </CredentialsProvider>
         </div>
         <Footer className="sticky top-[100vh] shadow-none">
           <Footer.Copyright
