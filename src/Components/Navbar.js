@@ -7,11 +7,12 @@ export default function () {
     <Navbar
       fluid={true}
       rounded={true}
+      className="shadow-sm"
     >
       <Navbar.Brand href="/">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-      Conjure Kit
-    </span>
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            Conjure Kit
+          </span>
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
