@@ -24,12 +24,7 @@ function App() {
             </Routes>
           </CredentialsProvider>
         </div>
-        <Footer className="sticky top-[100vh] shadow-none">
-          <Footer.Copyright
-            href="/"
-            by="Conjure Kit™"
-            year={2022}
-          />
+        <Footer className="sticky top-[100vh] !shadow-none !px-0 border-t border-gray-200 flex !justify-center">
           <Footer.LinkGroup className="mt-3 flex-wrap items-center text-sm sm:mt-0">
             <Footer.Link href="/about">
               About
