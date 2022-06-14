@@ -1,6 +1,7 @@
+// @flow
 import { Accordion } from 'flowbite-react';
 
-export default function () {
+const About = () : React$Element<any> => {
   return (
     <div>
       <Accordion flush={true}>
@@ -23,7 +24,8 @@ export default function () {
           <Accordion.Content>
             <p className="mb-2 text-black">
               Data is stored in your browser. This entire application doesn't have any back-end and is, also, <a
-              href="https://github.com/fakeheal/conjure-kit/" target="_blank" className="border-b-2 text-blue-400">open-source
+              href="https://github.com/fakeheal/conjure-kit/" target="_blank" rel="noreferrer"
+              className="border-b-2 text-blue-400">open-source
               so come check it out</a>.
             </p>
           </Accordion.Content>
@@ -45,3 +47,4 @@ export default function () {
     </div>
   )
 }
+export default About;

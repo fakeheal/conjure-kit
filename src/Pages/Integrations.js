@@ -1,8 +1,9 @@
+// @flow
 import { Card, Badge } from 'flowbite-react';
 import rescueTimeLogo from '../assets/images/rescuetime.png';
 import traktTvLogo from '../assets/images/trakttv.png';
 
-export default function () {
+const Integrations = () : React$Element<any> => {
   return (
     <div className="my-4">
       <Card horizontal={false} className="md:max-w-full mb-4">
@@ -34,3 +35,5 @@ export default function () {
     </div>
   )
 }
+
+export default Integrations;

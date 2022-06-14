@@ -1,24 +1,27 @@
-import { Navbar } from 'flowbite-react';
+// @flow
+import { Navbar as FlowbiteNav } from 'flowbite-react';
 import { useMatch } from 'react-router-dom'
 
-export default function () {
+const Navbar = () : React$Element<any> => {
   let match = useMatch({ path: new URL(window.location.href).pathname, end: true });
   return (
-    <Navbar className="border-b border-gray-200 sm:px-0">
-      <Navbar.Brand href="/">
+    <FlowbiteNav className="border-b border-gray-200 sm:!px-0">
+      <FlowbiteNav.Brand href="/">
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             Conjure Kit
           </span>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-      <Navbar.Collapse>
-        <Navbar.Link href="/integrations" active={match.pathname === '/integrations'}>
+      </FlowbiteNav.Brand>
+      <FlowbiteNav.Toggle />
+      <FlowbiteNav.Collapse>
+        <FlowbiteNav.Link href="/integrations" active={match.pathname === '/integrations'}>
           Integrations
-        </Navbar.Link>
-        <Navbar.Link href="/about" active={match.pathname === '/about'}>
+        </FlowbiteNav.Link>
+        <FlowbiteNav.Link href="/about" active={match.pathname === '/about'}>
           About
-        </Navbar.Link>
-      </Navbar.Collapse>
-    </Navbar>
+        </FlowbiteNav.Link>
+      </FlowbiteNav.Collapse>
+    </FlowbiteNav>
   )
 }
+
+export default Navbar;

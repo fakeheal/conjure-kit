@@ -1,8 +1,10 @@
-import { Label, Button, TextInput } from 'flowbite-react';
+// @flow
+import { Button } from 'flowbite-react';
 import React from 'react';
+import EnterToken from '../Components/EnterToken';
 import { CredentialsContext } from '../Providers/CredentialsProvider';
 
-const GetStarted = () => {
+const GetStarted = () : React$Element<any> => {
 
   const credentials = React.useContext(CredentialsContext);
 
@@ -13,11 +15,14 @@ const GetStarted = () => {
   const onConjureTokenButtonClicked = (e) => {
     e.preventDefault();
     credentials.conjure.set(personalAccessToken);
+    setPersonalAccessToken('');
   }
+
 
   const onRescueTimeTokenButtonClicked = (e) => {
     e.preventDefault();
     credentials.rescueTime.set(rescueTimeApiToken);
+    setRescueTimeApiToken('');
   }
 
   const onClearCredentialsButtonPressed = e => {
@@ -28,53 +33,26 @@ const GetStarted = () => {
 
   if (!credentials.conjure.token) {
     return (
-      <form className="flex flex-col gap-4">
-        <div>
-          <Label
-            className="mb-2 block"
-            htmlFor="personal-access-token"
-          >
-            Your Personal Access Token
-          </Label>
-          <TextInput
-            id="personal-access-token"
-            type="text"
-            placeholder="cnjrp_*****************"
-            required={true}
-            shadow={true}
-            onChange={event => setPersonalAccessToken(event.target.value)}
-          />
-        </div>
-        <Button type="submit" onClick={onConjureTokenButtonClicked}>
-          Continue with setup
-        </Button>
-      </form>
+      <EnterToken
+        value={personalAccessToken}
+        placeholderText="cnjrp_*****************"
+        labelText="Enter your Conjure Personal Access Token"
+        onButtonPressed={onConjureTokenButtonClicked}
+        onInputChanged={setPersonalAccessToken}
+        buttonText="Continue with setup"
+      />
     );
   }
 
   if (!credentials.rescueTime.token) {
     return (
-      <form className="flex flex-col gap-4">
-        <div>
-          <Label
-            className="mb-2 block"
-            htmlFor="personal-access-token"
-          >
-            Rescue Time API Token
-          </Label>
-          <TextInput
-            id="personal-access-token"
-            type="text"
-            placeholder="rsctim_*****************"
-            required={true}
-            shadow={true}
-            onChange={event => setRescueTimeApiToken(event.target.value)}
-          />
-        </div>
-        <Button type="submit" onClick={onRescueTimeTokenButtonClicked}>
-          Continue with setup
-        </Button>
-      </form>
+      <EnterToken
+        value={rescueTimeApiToken}
+        onButtonPressed={onRescueTimeTokenButtonClicked}
+        buttonText="Continue with Setup"
+        labelText="Enter Rescue Time Token"
+        onInputChanged={setRescueTimeApiToken}
+        placeholderText="resctm_*******" />
     );
   }
 

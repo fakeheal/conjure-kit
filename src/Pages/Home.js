@@ -1,11 +1,7 @@
+// @flow
 import { Link } from 'react-router-dom';
 
-const Home = () => {
-
-  const onGetStartedClicked = () => {
-
-  }
-
+const Home = () : React$Element<any> => {
   return (
     <div className="flex flex-col items-center sm:pt-4 pt-14">
       <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
