@@ -25,12 +25,11 @@ conjure.so** and:
     - Field Name: `Rate`, type: `Number` with `0.00` precision
     - Field Name: `Billable?`, type: `Checkbox`
 
-2. Go to: [Conjure Kit](https://conjure-kit.vercel.app/tools/billable-time-tracking) (or your self-hosted version of
+2. Go to [Conjure Kit](https://conjure-kit.vercel.app/tools/billable-time-tracking) (or your self-hosted version of
    this app)
-3. Enter your **conjure.so** token (
-   help: [How to get your personal access token](https://conjure.so/docs/api/getting-started))
-4. Choose "Tools: Billable Time Tracking" from the "mini dashboard"
-5. Enter your `Time Entry` measurement ID, created in step 1 (you can see it in the URL)
+3. Enter your **conjure.so** token (Help: [How to get your personal access token](https://conjure.so/docs/api/getting-started))
+4. Choose "**Tools: Billable Time Tracking**" from the "mini dashboard"
+5. Enter your `Time Entry` measurement ID, created in step 1, _(tip: you can see it in the URL, when previewing the records of that measurement)_
 6. Profit 👏
 
 ## Stack
