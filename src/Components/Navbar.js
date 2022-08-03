@@ -13,6 +13,9 @@ const Navbar = () : React$Element<any> => {
       </FlowbiteNav.Brand>
       <FlowbiteNav.Toggle />
       <FlowbiteNav.Collapse>
+        <FlowbiteNav.Link href="/tools" active={match.pathname === '/tools'}>
+          Tools
+        </FlowbiteNav.Link>
         <FlowbiteNav.Link href="/integrations" active={match.pathname === '/integrations'}>
           Integrations
         </FlowbiteNav.Link>

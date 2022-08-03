@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () : React$Element<any> => {
   return (
-    <div className="flex flex-col items-center sm:pt-4 pt-14">
+    <div className="flex flex-col items-center pt-14">
       <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
         <h1
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 font-black leading-7 md:leading-10">

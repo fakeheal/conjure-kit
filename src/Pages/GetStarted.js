@@ -1,6 +1,7 @@
 // @flow
 import { Button } from 'flowbite-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import EnterToken from '../Components/EnterToken';
 import { CredentialsContext } from '../Providers/CredentialsProvider';
 
@@ -9,20 +10,12 @@ const GetStarted = () : React$Element<any> => {
   const credentials = React.useContext(CredentialsContext);
 
   const [personalAccessToken, setPersonalAccessToken] = React.useState('');
-  const [rescueTimeApiToken, setRescueTimeApiToken] = React.useState('');
 
 
   const onConjureTokenButtonClicked = (e) => {
     e.preventDefault();
     credentials.conjure.set(personalAccessToken);
     setPersonalAccessToken('');
-  }
-
-
-  const onRescueTimeTokenButtonClicked = (e) => {
-    e.preventDefault();
-    credentials.rescueTime.set(rescueTimeApiToken);
-    setRescueTimeApiToken('');
   }
 
   const onClearCredentialsButtonPressed = e => {
@@ -44,32 +37,24 @@ const GetStarted = () : React$Element<any> => {
     );
   }
 
-  if (!credentials.rescueTime.token) {
-    return (
-      <EnterToken
-        value={rescueTimeApiToken}
-        onButtonPressed={onRescueTimeTokenButtonClicked}
-        buttonText="Continue with Setup"
-        labelText="Enter Rescue Time Token"
-        onInputChanged={setRescueTimeApiToken}
-        placeholderText="resctm_*******" />
-    );
-  }
-
   return (
-    <div className="flex flex-col items-center gap-8">
-      <img
-        alt="Mythic Quest: Huzzah"
-        className="inline"
-        src="https://64.media.tumblr.com/d50344f8706d8ae1d1a4c666b8a6acea/53f0db378312c183-71/s540x810/b0bff49f80a0027022f10374d8fc719cacdfa785.gifv" />
+    <div className="flex flex-col justify-between">
+      <div>
+        <Link to="/tools/billable-time-tracking">
+          <button
+            className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-transparent transition duration-150 ease-in-out hover:border-indigo-600 lg:text-lg lg:font-bold  hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-4 sm:px-4 py-2 sm:py-2 text-sm">
+            Tools: Billable Time Tracking
+          </button>
+        </Link>
+      </div>
 
-
-      <Button type="submit" onClick={onClearCredentialsButtonPressed}>
-        Clear Credentials
-      </Button>
+      <div className="mt-4">
+        <Button type="submit" onClick={onClearCredentialsButtonPressed}>
+          Clear Credentials
+        </Button>
+      </div>
     </div>
   )
-
 };
 
 export default GetStarted;

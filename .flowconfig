@@ -9,3 +9,5 @@
 [options]
 
 [strict]
+
+react.runtime=automatic
