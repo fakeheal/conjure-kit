@@ -4,8 +4,7 @@
 
 # Conjure Kit
 
-Allows users of [conjure.so](https://conjure.so) to connect and automize measurement synchronization between **
-conjure.so** and:
+Allows users of [conjure.so](https://conjure.so) to connect and automize measurement synchronization between **conjure.so** and:
 
 - [Trakt.tv](https://trakt.tv)
 - [Rescue Time](https://rescuetime.com)
