@@ -43,6 +43,7 @@ const processMeasurements = (records) => {
     let hourlyRate = records[i].values[customFieldsIds[FIELD_HOURLY_RATE]];
     items.push({
       id: records[i].id,
+      start: records[i].timestampRelative,
       task: records[i].values[customFieldsIds[FIELD_TASK]],
       label: records[i].values[customFieldsIds[FIELD_LABEL]],
       project: records[i].values[customFieldsIds[FIELD_PROJECT]],
@@ -169,6 +170,9 @@ const BillableTimeTracking = () : React$Element<any> => {
           <thead className="text-xs bg-gray-50">
           <tr>
             <th scope="col" className="py-2 px-3">
+              Started
+            </th>
+            <th scope="col" className="py-2 px-3">
               Task
             </th>
             <th scope="col" className="py-2 px-3 text-right">
@@ -204,7 +208,9 @@ const BillableTimeTracking = () : React$Element<any> => {
                 {
                   measurements.map(measurement => (
                     <tr className="bg-white border-b text-gray-800" key={measurement.id}>
-                      <th scope="row" className="py-2 px-3 font-medium">
+                      <th scope="row" className="py-2 px-3 font-medium whitespace-nowrap">
+                        {measurement.start}
+                      </th> <th scope="row" className="py-2 px-3 font-medium">
                         {measurement.task}
                       </th>
                       <td className="py-2 px-3 text-right">
