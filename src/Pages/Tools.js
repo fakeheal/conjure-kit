@@ -8,13 +8,18 @@ const Tools = () : React$Element<any> => {
         <div className="text-2xl font-bold text-gray-900 dark:text-white flex justify-between">
           <div className="flex items-center">
             <h5 className="mr-2"> Billable Time Tracking</h5>
-            <Badge color="pink">in progress</Badge>
+            <Badge color="green">completed</Badge>
           </div>
         </div>
         <p className="font-normal text-gray-700 dark:text-gray-400">
           Using <strong
           className="text-indigo-600">Conjure</strong>'s <strong>Time entry</strong> measurement track time you spend on
           tasks for clients and easily create reports.
+          <div className="flex gap-4 mt-4">
+            <a href="https://github.com/fakeheal/conjure-kit#billable-time-tracking-preview"
+               className="border-b text-gray-800 font-bold">How to use</a>
+            <a href="https://i.imgur.com/q3uFEJd.png" className="border-b text-gray-800 font-bold">Setup</a>
+          </div>
         </p>
       </Card>
 

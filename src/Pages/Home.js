@@ -13,6 +13,9 @@ const Home = () : React$Element<any> => {
           Synchronize data to your <strong className="text-indigo-500">Conjure</strong> account from services like <a
           href="https://rescuetime.com" className="border-b text-gray-800 font-bold">Rescue Time</a>, <a
           href="https://trak.tv" className="border-b text-gray-800 font-bold">trakt.tv</a>.
+          <br/>
+          <br/>
+          Additionally, there are <a href="/tools" className="border-b text-gray-800 font-bold">Tools</a> that are built on top of <strong className="text-indigo-500">Conjure</strong>.
         </p>
       </div>
       <div className="flex justify-center items-center">
