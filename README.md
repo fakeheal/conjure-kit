@@ -33,6 +33,9 @@ conjure.so** and:
 5. Enter your `Time Entry` measurement ID, created in step 1 (you can see it in the URL)
 6. Profit 👏
 
+#### Changelog
+- **19 Aug 2022**: Added Grouping functionality that groups records by a combination of their _client_, _project_, _label_, _task_ properties
+
 ## Stack
 
 - JS (React via CRA)

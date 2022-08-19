@@ -1,6 +1,6 @@
 // @flow
 
-import { Spinner, Alert, Button, TextInput } from 'flowbite-react';
+import { Spinner, Alert, Button, TextInput, ToggleSwitch } from 'flowbite-react';
 import moment from 'moment';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
@@ -16,6 +16,36 @@ const FIELD_PROJECT = 'Project';
 const FIELD_CLIENT = 'Client';
 const FIELD_HOURLY_RATE = 'Rate';
 const FIELD_IS_BILLABLE = 'Billable?';
+
+const hoursByRate = (hourlyRate, duration) => {
+  return (Math.round(duration * (hourlyRate / 60 / 60) * 100) / 100);
+}
+
+const formatDuration = (seconds) => `${Math.floor(seconds / 3600)}:${Math.floor((seconds % 3600) / 60)}:${Math.floor((seconds % 3600) % 60)}`
+
+
+const groupByTask = (records) => {
+  const items = {};
+
+  for (let i = 0; i < records.length; i++) {
+    let groupKey = `${records[i].client}-${records[i].project}-${records[i].label}-${records[i].task}`
+    if (!items.hasOwnProperty(groupKey)) {
+      items[groupKey] = records[i];
+    } else {
+      let newDuration = items[groupKey].duration + records[i].duration;
+
+      // Supports same task name with different hourly rate
+      let newTotal = items[groupKey].total + records[i].total;
+      items[groupKey] = {
+        ...items[groupKey],
+        duration: newDuration,
+        total: newTotal
+      }
+    }
+  }
+
+  return Object.values(items);
+};
 
 const processMeasurements = (records) => {
   if (!records || records.length === 0) {
@@ -34,7 +64,7 @@ const processMeasurements = (records) => {
   };
 
   if (Object.values(customFieldsIds).filter((i) => i).length !== 6) {
-    throw new Error("This measurement is not setup properly.");
+    throw new Error('This measurement is not setup properly.');
   }
 
   for (let i = 0; i < records.length; i++) {
@@ -48,12 +78,13 @@ const processMeasurements = (records) => {
       label: records[i].values[customFieldsIds[FIELD_LABEL]],
       project: records[i].values[customFieldsIds[FIELD_PROJECT]],
       client: records[i].values[customFieldsIds[FIELD_CLIENT]],
+      total: isBillable ? hoursByRate(hourlyRate, duration) : 0,
       hourlyRate,
       isBillable,
-      duration: new Date(duration * 1000).toISOString().slice(11, 19),
-      total: isBillable ? (Math.round(duration * (hourlyRate / 60 / 60) * 100) / 100) : 0
+      duration,
     });
   }
+
 
   return items;
 };
@@ -72,6 +103,7 @@ const BillableTimeTracking = () : React$Element<any> => {
     moment().startOf('month').startOf('day')
   );
   const [endDate, setEndDate] = React.useState(moment().endOf('month').endOf('day'));
+  const [shouldGroupByTask, setShouldGroupByTask] = React.useState(false);
 
   const { data, isFetching } = useTimeEntry(
     credentials.tools.billableTimeTracking.id,
@@ -87,12 +119,23 @@ const BillableTimeTracking = () : React$Element<any> => {
   React.useEffect(() => {
     setSetupError('');
     try {
-      setMeasurements(processMeasurements(data));
+      let processed = processMeasurements(data);
+      if (shouldGroupByTask) {
+        processed = groupByTask(processed);
+      }
+      setMeasurements(processed);
     } catch (e) {
       setMeasurements([]);
       setSetupError(e.message);
     }
-  }, [data])
+  }, [data, shouldGroupByTask]);
+
+
+  const onSetTimeEntryIdButtonPressed = (e) => {
+    e.preventDefault();
+    credentials.tools.billableTimeTracking.set(timeEntryId);
+    setTimeEntryId('');
+  }
 
   const SetupError = () => (
     <div className="mt-4">
@@ -115,12 +158,6 @@ const BillableTimeTracking = () : React$Element<any> => {
       </Alert>
     </div>
   )
-
-  const onSetTimeEntryIdButtonPressed = (e) => {
-    e.preventDefault();
-    credentials.tools.billableTimeTracking.set(timeEntryId);
-    setTimeEntryId('');
-  }
 
   if (!credentials.conjure.token) {
     return <Navigate to="/get-started" />
@@ -148,24 +185,48 @@ const BillableTimeTracking = () : React$Element<any> => {
         )}
       </h2>
 
-      <div className="flex mt-4 gap-4">
-        <TextInput
-          id="startDate"
-          type="datetime-local"
-          placeholder="Enter start date & time..."
-          value={startDate.format(HTML_DATETIME_INPUT_FORMAT)}
-          onChange={({ target }) => setStartDate(moment(target.value))}
-          required={true}
-        />
-        <TextInput
-          id="endDate"
-          type="datetime-local"
-          placeholder="Enter end date & time..."
-          onChange={({ target }) => setEndDate(moment(target.value))}
-          value={endDate.format(HTML_DATETIME_INPUT_FORMAT)}
-          required={true}
-        />
+      <div className="flex mt-4 justify-between">
+        <div className="flex gap-4">
+          <TextInput
+            id="startDate"
+            type="datetime-local"
+            placeholder="Enter start date & time..."
+            value={startDate.format(HTML_DATETIME_INPUT_FORMAT)}
+            onChange={({ target }) => setStartDate(moment(target.value))}
+            required={true}
+          />
+          <TextInput
+            id="endDate"
+            type="datetime-local"
+            placeholder="Enter end date & time..."
+            onChange={({ target }) => setEndDate(moment(target.value))}
+            value={endDate.format(HTML_DATETIME_INPUT_FORMAT)}
+            required={true}
+          />
+        </div>
+        <div
+          className="flex flex-col gap-4"
+        >
+          <ToggleSwitch
+            checked={shouldGroupByTask}
+            label="Group by Name"
+            onChange={() => setShouldGroupByTask(!shouldGroupByTask)}
+          />
+        </div>
       </div>
+
+      {shouldGroupByTask && (
+        <div className="mt-4">
+          <Alert color="blue">
+          <span>
+            <span className="font-medium">
+              Grouping enabled!
+            </span>
+            {' '} You're currently grouping the records by their <strong>name</strong> for each label, project & client combination.
+          </span>
+          </Alert>
+        </div>
+      )}
 
       {setupError && <SetupError />}
       <div className="overflow-x-auto relative mt-4 whitespace-nowrap">
@@ -227,7 +288,7 @@ const BillableTimeTracking = () : React$Element<any> => {
                         <strong>{measurement.client}</strong>
                       </td>
                       <td className="py-2 px-3 text-right">
-                        {measurement.duration}
+                        {formatDuration(measurement.duration)}
                       </td>
                       <td className="py-2 px-3 text-right">
                         {measurement.total.toFixed(2)}
