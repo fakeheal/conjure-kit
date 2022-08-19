@@ -58,7 +58,10 @@ const processMeasurements = (records) => {
   return items;
 };
 
-const getTotal = (items) => items.reduce((acc, item) => acc + item.total, 0);
+const getTotal = (items) => {
+  const total = items.reduce((acc, item) => acc + item.total, 0);
+  return (Math.round(total * 100) / 100).toFixed(2);
+};
 
 const BillableTimeTracking = () : React$Element<any> => {
   const credentials = React.useContext(CredentialsContext);
@@ -165,7 +168,7 @@ const BillableTimeTracking = () : React$Element<any> => {
       </div>
 
       {setupError && <SetupError />}
-      <div className="overflow-x-auto relative mt-4">
+      <div className="overflow-x-auto relative mt-4 whitespace-nowrap">
         <table className="w-full text-sm text-left">
           <thead className="text-xs bg-gray-50">
           <tr>
@@ -197,7 +200,7 @@ const BillableTimeTracking = () : React$Element<any> => {
           {
             measurements.length === 0 ? (
               <tr>
-                <td colSpan={6}>
+                <td colSpan={7}>
                   <div className="bg-blue-100 p-4 font-bold text-center">
                     No records found.
                   </div>
@@ -210,7 +213,8 @@ const BillableTimeTracking = () : React$Element<any> => {
                     <tr className="bg-white border-b text-gray-800" key={measurement.id}>
                       <th scope="row" className="py-2 px-3 font-medium whitespace-nowrap">
                         {measurement.start}
-                      </th> <th scope="row" className="py-2 px-3 font-medium">
+                      </th>
+                      <th scope="row" className="py-2 px-3 font-medium">
                         {measurement.task}
                       </th>
                       <td className="py-2 px-3 text-right">
@@ -232,7 +236,7 @@ const BillableTimeTracking = () : React$Element<any> => {
                   ))
                 }
                 <tr>
-                  <td colSpan={6} className="text-lg text-right py-2 px-3">
+                  <td colSpan={7} className="text-lg text-right py-2 px-3">
                     <span className="text-gray-400">
                       Total: {' '}
                     </span>
