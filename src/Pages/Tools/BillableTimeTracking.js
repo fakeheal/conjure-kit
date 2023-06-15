@@ -5,10 +5,10 @@ import moment from 'moment';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import EnterToken from '../../Components/EnterToken';
+import { HTML_DATETIME_INPUT_FORMAT } from '../../constants';
 import useTimeEntry from '../../hooks/useTimeEntry';
 import { CredentialsContext } from '../../Providers/CredentialsProvider';
 
-const HTML_DATETIME_INPUT_FORMAT = 'yyyy-MM-DDThh:mm';
 
 const FIELD_TASK = 'Task';
 const FIELD_LABEL = 'Label';

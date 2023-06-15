@@ -7,6 +7,7 @@ import About from './Pages/About';
 import GetStarted from './Pages/GetStarted';
 import Home from './Pages/Home';
 import Integrations from './Pages/Integrations';
+import RescueTime from './Pages/Integrations/RescueTime';
 import Tools from './Pages/Tools';
 import BillableTimeTracking from './Pages/Tools/BillableTimeTracking';
 import CredentialsProvider from './Providers/CredentialsProvider';
@@ -25,6 +26,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="integrations" element={<Integrations />} />
                 <Route path="tools" element={<Tools />} />
+                <Route path="integrations/rescue-time" element={<RescueTime />} />
                 <Route path="tools/billable-time-tracking" element={<BillableTimeTracking />} />
                 <Route path="about" element={<About />} />
                 <Route path="get-started" element={<GetStarted />} />

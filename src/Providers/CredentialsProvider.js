@@ -6,9 +6,23 @@ export const CredentialsContext = React.createContext<{
     set : (value) => void,
     token : string
   },
-  rescueTime : {
-    set : (value) => void,
-    token : string
+  integrations : {
+    rescueTime : {
+      api : {
+        set : (value) => void,
+        token : string
+      },
+      store : {
+        distracting : {
+          set : (value) => void,
+          id : string
+        },
+        productive : {
+          set : (value) => void,
+          id : string
+        },
+      }
+    },
   },
   tools : {
     billableTimeTracking : {
@@ -21,9 +35,23 @@ export const CredentialsContext = React.createContext<{
     set: () => null,
     token: ''
   },
-  rescueTime: {
-    set: () => null,
-    token: ''
+  integrations: {
+    rescueTime: {
+      api: {
+        set: () => null,
+        token: ''
+      },
+      store: {
+        distracting: {
+          set: () => null,
+          id: ''
+        },
+        productive: {
+          set: () => null,
+          id: ''
+        }
+      }
+    },
   },
   tools: {
     billableTimeTracking: {
@@ -35,20 +63,32 @@ export const CredentialsContext = React.createContext<{
 
 const CONJURE_KEY = 'conjure';
 const BILLABLE_TIME_ENTRY_ID_KEY = 'billableTimeTrackingTimeEntryId';
-const RESCUE_TIME_KEY = 'rescue_time';
+const RESCUE_TIME_API_TOKEN_KEY = 'rescueTimeApiToken';
+const RESCUE_TIME_STORE_DISTRACTING_ID_KEY = 'rescueTimeStoreDistractingId';
+const RESCUE_TIME_STORE_PRODUCTIVE_ID_KEY = 'rescueTimeStoreProductiveId';
 
 const CredentialsProvider = (props) : React$Element<any> => {
   const [conjureToken, setConjureToken] = React.useState(localStorage.getItem(CONJURE_KEY) ?? '');
   const [timeEntryId, setTimeEntryId] = React.useState(localStorage.getItem(BILLABLE_TIME_ENTRY_ID_KEY) ?? '');
-  const [rescueTimeToken, setRescueTimeToken] = React.useState(localStorage.getItem(RESCUE_TIME_KEY) ?? '');
+  const [rescueTimeApiToken, setRescueTimeApiToken] = React.useState(localStorage.getItem(RESCUE_TIME_API_TOKEN_KEY) ?? '');
+  const [rescueTimeDistractingId, setRescueTimeDistractingId] = React.useState(localStorage.getItem(RESCUE_TIME_STORE_DISTRACTING_ID_KEY) ?? '');
+  const [rescueTimeProductiveId, setRescueTimeProductiveId] = React.useState(localStorage.getItem(RESCUE_TIME_STORE_PRODUCTIVE_ID_KEY) ?? '');
 
   React.useEffect(() => {
     localStorage.setItem(CONJURE_KEY, conjureToken);
   }, [conjureToken]);
 
   React.useEffect(() => {
-    localStorage.setItem(RESCUE_TIME_KEY, rescueTimeToken);
-  }, [rescueTimeToken]);
+    localStorage.setItem(RESCUE_TIME_API_TOKEN_KEY, rescueTimeApiToken);
+  }, [rescueTimeApiToken]);
+
+  React.useEffect(() => {
+    localStorage.setItem(RESCUE_TIME_STORE_DISTRACTING_ID_KEY, rescueTimeDistractingId);
+  }, [rescueTimeDistractingId]);
+
+  React.useEffect(() => {
+    localStorage.setItem(RESCUE_TIME_STORE_PRODUCTIVE_ID_KEY, rescueTimeProductiveId);
+  }, [rescueTimeProductiveId]);
 
   React.useEffect(() => {
     localStorage.setItem(BILLABLE_TIME_ENTRY_ID_KEY, timeEntryId);
@@ -61,9 +101,23 @@ const CredentialsProvider = (props) : React$Element<any> => {
         set: setConjureToken,
         token: conjureToken
       },
-      rescueTime: {
-        set: setRescueTimeToken,
-        token: rescueTimeToken
+      integrations: {
+        rescueTime: {
+          api: {
+            set: setRescueTimeApiToken,
+            token: rescueTimeApiToken
+          },
+          store: {
+            distracting: {
+              set: setRescueTimeDistractingId,
+              id: rescueTimeDistractingId
+            },
+            productive: {
+              set: setRescueTimeProductiveId,
+              id: rescueTimeProductiveId
+            }
+          }
+        },
       },
       tools: {
         billableTimeTracking: {
