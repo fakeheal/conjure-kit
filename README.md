@@ -1,3 +1,6 @@
+> [!WARNING]
+> [`conjure.so`](https://conjure.so) has shut down as of January 31st, 2025. This project no longer makes any sense.
+
 <p align="center">
 <img src="makeshift-logo.png" alt="Makeshift Logo" height='75'/>
 </p>
